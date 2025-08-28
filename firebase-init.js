@@ -1,22 +1,21 @@
-// firebase-init.js  (USAR VIA CDN)
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-// 1) Config do SEU projeto (copiada do console)
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBS3TR3k1no8fE3d-VCRpjkF6Q0w6s79Go",
+  apiKey: "AIzaSyBS3TR3k1no8fE3d-VCRpjkF6QOw6s79Go",
   authDomain: "producao-lirio-branco.firebaseapp.com",
   projectId: "producao-lirio-branco",
   storageBucket: "producao-lirio-branco.firebasestorage.app",
-  messagingSenderId: "26035930213",
-  appId: "1:26035930213:web:0a5226f92ecffe7e27872c",
-  measurementId: "G-Z3B11DN08X" // opcional
+  messagingSenderId: "260359302213",
+  appId: "1:260359302213:web:0a5226f92ecffe7e27872c",
+  measurementId: "G-Z3B11DN0SX"
 };
 
-// 2) Imports via CDN (Firebase v10)
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-// 3) Inicializa e exporta para outros arquivos
-export const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db   = getFirestore(app);
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
