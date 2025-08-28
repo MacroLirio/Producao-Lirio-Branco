@@ -90,4 +90,16 @@ if (btnCadastrar) {
 // LOGOUT (usado no project.html)
 const btnSair = document.querySelector('#btn-sair');
 if (btnSair) {
-  btnSair.addEventListener('click', async () =>
+  btnSair.addEventListener('click', async () => {
+    await signOut(auth);
+    window.location.href = './index.html';
+  });
+}
+
+// Protege a página de projetos
+onAuthStateChanged(auth, (user) => {
+  const estaNaProject = location.pathname.endsWith('/project.html') || location.href.includes('project.html');
+  if (estaNaProject && !user) {
+    window.location.href = './index.html';
+  }
+});
