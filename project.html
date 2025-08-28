@@ -1,37 +1,30 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Projeto • Lírio Branco Cultural</title>
-  <link rel="stylesheet" href="./styles.css">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projetos • Área restrita</title>
+  <style>
+    body{ font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:#f5f7fa; margin:0 }
+    header{ background:#0b4a54; color:#fff; padding:16px 20px; display:flex; justify-content:space-between; align-items:center }
+    main{ max-width:1000px; margin:24px auto; background:#fff; border-radius:14px; padding:22px; box-shadow:0 10px 24px rgba(0,0,0,.08) }
+    h1{ margin-top:0 }
+    button{ background:#0b4a54; color:#fff; border:0; padding:10px 14px; border-radius:10px; cursor:pointer }
+    button:hover{ background:#0f6a79 }
+  </style>
 </head>
 <body>
-  <header class="header">
-    <div class="brand">Projeto • <span id="projTitle">Carregando…</span></div>
-    <nav>
-      <a href="./projects.html">Projetos</a>
-      <a href="#" id="logoutLink">Sair</a>
-    </nav>
+  <header>
+    <strong>Lírio Branco Cultural • Projetos</strong>
+    <button id="btn-sair">Sair</button>
   </header>
 
-  <main class="container">
-    <div class="card">
-      <div class="navtabs">
-        <a href="#geral" class="active" data-tab>Geral</a>
-        <a href="#atividades" data-tab>Atividades</a>
-        <a href="#cronograma" data-tab>Cronograma</a>
-        <a href="#locais" data-tab>Locais</a>
-        <a href="#financeiro" id="financeTab" class="hidden" data-tab>Financeiro (admin)</a>
-      </div>
-      <div id="tabContent"></div>
-    </div>
+  <main>
+    <h1>Área de projetos (restrita)</h1>
+    <p>Se você está vendo isso, está logado ✅.</p>
+    <!-- Aqui você pode colocar sua lista de projetos futuramente -->
   </main>
 
-  <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore-compat.js"></script>
-  <script src="./firebase-init.js"></script>
-  <script src="./project.js"></script>
+  <script type="module" src="./app-auth.js"></script>
 </body>
 </html>
