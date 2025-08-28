@@ -1,89 +1,64 @@
-// Utils
-function $(sel){ return document.querySelector(sel) }
-function show(el){ el.classList.remove('hidden') }
-function hide(el){ el.classList.add('hidden') }
+import { auth } from './firebase-init.js';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-const loginForm = document.getElementById('loginForm');
-const signupForm = document.getElementById('signupForm');
-const logoutLink = document.getElementById('logoutLink');
-const goProjects = document.getElementById('goProjects');
+// Pega elementos do HTML
+const loginEmail   = document.querySelector('#login-email');
+const loginSenha   = document.querySelector('#login-senha');
+const btnEntrar    = document.querySelector('#btn-entrar');
 
-async function getUserRole(uid){
-  if(!uid) return null;
-  try{
-    const doc = await db.collection('users').doc(uid).get();
-    return doc.exists ? doc.data().role || 'user' : 'user';
-  }catch(e){
-    console.error('role error', e); 
-    return 'user';
-  }
+const cadEmail     = document.querySelector('#cad-email');
+const cadSenha     = document.querySelector('#cad-senha');
+const btnCadastrar = document.querySelector('#btn-cadastrar');
+
+const btnSair      = document.querySelector('#btn-sair'); // existe no project.html
+
+// LOGIN
+if (btnEntrar) {
+  btnEntrar.addEventListener('click', async (e) => {
+    e.preventDefault();
+    try {
+      await signInWithEmailAndPassword(auth, loginEmail.value, loginSenha.value);
+      window.location.href = './project.html';
+    } catch (err) {
+      alert('Erro ao entrar: ' + traduz(err.message));
+      console.error(err);
+    }
+  });
 }
 
-auth.onAuthStateChanged(async (user)=>{
-  const emailEl = $('#userEmail'), uidEl = $('#userUid'), roleEl = $('#userRole');
-  if(user){
-    if(logoutLink) show(logoutLink);
-    if(goProjects) show(goProjects);
-    if(emailEl) emailEl.textContent = user.email;
-    if(uidEl) uidEl.textContent = user.uid;
-
-    // garante que o doc de usuário exista
-    const ref = db.collection('users').doc(user.uid);
-    const snap = await ref.get();
-    if(!snap.exists){
-      await ref.set({ email: user.email, role: 'user', createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+// CADASTRO
+if (btnCadastrar) {
+  btnCadastrar.addEventListener('click', async (e) => {
+    e.preventDefault();
+    try {
+      await createUserWithEmailAndPassword(auth, cadEmail.value, cadSenha.value);
+      alert('Conta criada! Agora faça login.');
+    } catch (err) {
+      alert('Erro ao criar conta: ' + traduz(err.message));
+      console.error(err);
     }
-    const role = await getUserRole(user.uid);
-    if(roleEl) roleEl.textContent = role;
+  });
+}
 
-  }else{
-    if(emailEl) emailEl.textContent = '—';
-    if(uidEl) uidEl.textContent = '—';
-    if(roleEl) roleEl.textContent = 'desconhecido';
-    if(logoutLink) hide(logoutLink);
-    if(goProjects) hide(goProjects);
+// LOGOUT
+if (btnSair) {
+  btnSair.addEventListener('click', async () => {
+    await signOut(auth);
+    window.location.href = './index.html';
+  });
+}
+
+// Protege a página de projetos (só entra logado)
+onAuthStateChanged(auth, (user) => {
+  const estaNaProject = location.pathname.endsWith('/project.html') || location.href.includes('project.html');
+  if (estaNaProject && !user) {
+    window.location.href = './index.html';
   }
 });
 
-if(loginForm){
-  loginForm.addEventListener('submit', async (e)=>{
-    e.preventDefault();
-    const email = document.getElementById('loginEmail').value.trim();
-    const pass  = document.getElementById('loginPassword').value;
-    try{
-      await auth.signInWithEmailAndPassword(email, pass);
-      alert('Login ok!'); 
-    }catch(err){
-      alert('Erro ao entrar: '+ err.message);
-    }
-  });
-}
-
-if(signupForm){
-  signupForm.addEventListener('submit', async (e)=>{
-    e.preventDefault();
-    const email = document.getElementById('signupEmail').value.trim();
-    const pass  = document.getElementById('signupPassword').value;
-    try{
-      const cred = await auth.createUserWithEmailAndPassword(email, pass);
-      await db.collection('users').doc(cred.user.uid).set({
-        email, role:'user', createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
-      alert('Conta criada! Faça login se necessário.');
-    }catch(err){
-      alert('Erro ao criar conta: '+ err.message);
-    }
-  });
-}
-
-if(logoutLink){
-  logoutLink.addEventListener('click', async (e)=>{
-    e.preventDefault();
-    await auth.signOut();
-    alert('Você saiu.');
-  });
-}
-
-if(goProjects){
-  goProjects.addEventListener('click', ()=> location.href = './projects.html');
-}
+// Mens
