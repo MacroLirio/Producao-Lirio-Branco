@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projetos • Lírio Branco Cultural</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="brand">Lírio Branco Cultural • Projetos</div>
+    <nav>
+      <a href="./index.html">Início</a>
+      <a href="#" id="logoutLink">Sair</a>
+    </nav>
+  </header>
+  <main class="container">
+    <div class="card">
+      <h1>Projetos</h1>
+      <p class="small">Crie um projeto e clique em “Abrir” para editar páginas internas (Atividades, Cronograma, Locais e Financeiro*).</p>
+      <p class="small"><b>*Financeiro</b> é visível apenas para administradores.</p>
+    </div>
+
+    <div class="card">
+      <h2>Novo Projeto</h2>
+      <form id="newProjectForm">
+        <div class="row">
+          <div>
+            <label>Nome</label>
+            <input id="projectName" placeholder="Ex.: A Tradição de São João" required>
+          </div>
+          <div>
+            <label>Cliente (opcional)</label>
+            <input id="projectClient" placeholder="Ex.: Aldair">
+          </div>
+        </div>
+        <label>Descrição</label>
+        <textarea id="projectDesc" rows="3" placeholder="Resumo do projeto"></textarea>
+        <button type="submit">Criar projeto</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Meus Projetos</h2>
+      <table class="table" id="projectsTable">
+        <thead><tr><th>Nome</th><th>Cliente</th><th>Criado em</th><th></th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore-compat.js"></script>
+  <script src="./firebase-init.js"></script>
+  <script src="./projects.js"></script>
+</body>
+</html>

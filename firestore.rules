@@ -1,0 +1,36 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function isAdmin() {
+      return signedIn() &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    function isOwner(projectId) {
+      return signedIn() &&
+        get(/databases/$(database)/documents/projects/$(projectId)).data.ownerUid == request.auth.uid;
+    }
+
+    match /users/{userId} {
+      allow read: if signedIn() && (request.auth.uid == userId || isAdmin());
+      allow write: if signedIn() && (request.auth.uid == userId || isAdmin());
+    }
+
+    match /projects/{projectId} {
+      allow create: if signedIn();
+      allow read: if isOwner(projectId) || isAdmin();
+      allow update, delete: if isOwner(projectId) || isAdmin();
+
+      // Subcoleções abertas para dono e admin
+      match /{subCollection=activities|schedule|locations}/{docId} {
+        allow read, write: if isOwner(projectId) || isAdmin();
+      }
+
+      // Financeiro somente admin
+      match /finance/{docId} {
+        allow read, write: if isAdmin();
+      }
+    }
+  }
+}

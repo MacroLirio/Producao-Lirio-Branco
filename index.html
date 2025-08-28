@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lírio Branco Cultural – Painel</title>
+  <meta name="description" content="Sistema simples de projetos – Lírio Branco Cultural">
+  <link rel="icon" href="favicon.ico">
+  <meta property="og:title" content="Lírio Branco Cultural – Painel">
+  <meta property="og:description" content="Projetos, cronograma e financeiro">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="brand">Lírio Branco Cultural • Painel</div>
+    <nav>
+      <a href="./projects.html">Projetos</a>
+      <a href="#" id="logoutLink" class="hidden">Sair</a>
+    </nav>
+  </header>
+  <main class="container">
+    <div class="card" id="welcomeCard">
+      <h1>Bem-vindo</h1>
+      <p class="small">Faça login para acessar seus projetos. Somente usuários autenticados podem criar projetos. A área de <b>Financeiro</b> é exclusiva de administradores.</p>
+    </div>
+
+    <div class="row">
+      <div class="card">
+        <h2>Entrar</h2>
+        <form id="loginForm">
+          <label>E-mail</label>
+          <input type="email" id="loginEmail" placeholder="voce@exemplo.com" required>
+          <label>Senha</label>
+          <input type="password" id="loginPassword" placeholder="Sua senha" required>
+          <button type="submit">Entrar</button>
+        </form>
+        <button id="goProjects" class="ghost hidden">Ir para Projetos</button>
+      </div>
+      <div class="card">
+        <h2>Criar conta</h2>
+        <form id="signupForm">
+          <label>E-mail</label>
+          <input type="email" id="signupEmail" required>
+          <label>Senha (mín. 6 caracteres)</label>
+          <input type="password" id="signupPassword" minlength="6" required>
+          <button type="submit">Criar conta</button>
+        </form>
+        <p class="small">Dica: você pode desativar o cadastro público depois, criando usuários manualmente no Console do Firebase.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Seu status</h2>
+      <p class="small">Usuário: <span id="userEmail">—</span></p>
+      <p class="small">UID: <span id="userUid">—</span></p>
+      <p class="small">Papel: <span id="userRole" class="badge">desconhecido</span></p>
+    </div>
+  </main>
+
+  <!-- Firebase compat SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore-compat.js"></script>
+  <script src="./firebase-init.js"></script>
+  <script src="./app-auth.js"></script>
+</body>
+</html>

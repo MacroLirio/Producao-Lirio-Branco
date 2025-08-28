@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projeto • Lírio Branco Cultural</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="brand">Projeto • <span id="projTitle">Carregando…</span></div>
+    <nav>
+      <a href="./projects.html">Projetos</a>
+      <a href="#" id="logoutLink">Sair</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="card">
+      <div class="navtabs">
+        <a href="#geral" class="active" data-tab>Geral</a>
+        <a href="#atividades" data-tab>Atividades</a>
+        <a href="#cronograma" data-tab>Cronograma</a>
+        <a href="#locais" data-tab>Locais</a>
+        <a href="#financeiro" id="financeTab" class="hidden" data-tab>Financeiro (admin)</a>
+      </div>
+      <div id="tabContent"></div>
+    </div>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore-compat.js"></script>
+  <script src="./firebase-init.js"></script>
+  <script src="./project.js"></script>
+</body>
+</html>
