@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lírio Branco Cultural • Painel</title>
   <style>
-    /* CSS MINIMALISTA (curto para evitar cortes) */
-    body { margin:0; font-family: Arial, Helvetica, sans-serif; background:#f5f7fa; color:#1f2937; }
+    body { margin:0; font-family: Arial, sans-serif; background:#f5f7fa; color:#1f2937; }
     header { background:#0b4a54; color:#fff; padding:16px 20px; font-weight:bold; }
     .wrap { max-width:1000px; margin:24px auto; padding:0 16px; }
     .hero, .card { background:#fff; border-radius:12px; padding:18px; box-shadow:0 6px 18px rgba(0,0,0,.08); }
@@ -19,6 +18,7 @@
     button { width:100%; padding:10px 14px; margin-top:12px; border:0; border-radius:8px; background:#0b4a54; color:#fff; font-weight:bold; cursor:pointer; }
     button:hover { background:#0f6a79; }
     .hint { font-size:12px; color:#6b7280; margin-top:8px; }
+    #msg { display:none; max-width:1000px; margin:16px auto; padding:12px; border-radius:8px; }
     @media (max-width:820px){ .grid{ grid-template-columns:1fr; } }
   </style>
 </head>
@@ -30,7 +30,10 @@
       <p>Faça login para acessar seus projetos. Somente usuários autenticados podem criar projetos.</p>
     </div>
 
+    <div id="msg"></div>
+
     <div class="grid">
+      <!-- ENTRAR -->
       <div class="card">
         <h3>Entrar</h3>
         <label>E-mail</label>
@@ -38,8 +41,10 @@
         <label>Senha</label>
         <input id="login-senha" type="password" placeholder="******" />
         <button id="btn-entrar">Entrar</button>
+        <button id="btn-esqueci" style="margin-top:10px;background:#6b7280">Esqueci a senha</button>
       </div>
 
+      <!-- CRIAR CONTA -->
       <div class="card">
         <h3>Criar conta</h3>
         <label>E-mail</label>
@@ -47,12 +52,3 @@
         <label>Senha (mín. 6 caracteres)</label>
         <input id="cad-senha" type="password" placeholder="******" />
         <button id="btn-cadastrar">Criar conta</button>
-        <div class="hint">Dica: depois você pode desativar o cadastro público no Console do Firebase.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Ponto de entrada -->
-  <script type="module" src="./app-auth.js"></script>
-</body>
-</html>
